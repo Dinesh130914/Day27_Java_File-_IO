@@ -1,4 +1,4 @@
-package com.payrool;
+package com.payroll;
 
 public class Employee {
 
