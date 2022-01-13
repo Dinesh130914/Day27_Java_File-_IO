@@ -14,6 +14,7 @@ public class EmployeePayrollFileTest {
 				new Employee(4, "Bill Gates", 400000), new Employee(3, "Elon Musk", 300000), };
 				
 		Service service = new Service(empsData);
+		service.readempdata(IOStream.FILE_IO);
 		service.writeempdata(IOStream.FILE_IO);
 		long count = service.countentries();
 		System.out.println(count);

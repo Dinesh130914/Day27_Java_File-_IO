@@ -15,12 +15,22 @@ public class EmployeePayrollFile {
 			empBuffer.append(emp + "\n");
 		});
 		try {
+			System.out.println("Write data from File");
 			Files.write(Paths.get(EMP_FILE_PATH), empBuffer.toString().getBytes());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
+	
+	public void readempdata() {
+		try {
+			System.out.println("Read Data From File");
+			Files.lines(Paths.get(EMP_FILE_PATH)).map(line -> line.trim()).forEach(System.out::println);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public long countLines() {
 		long count = 0;
 		try {
