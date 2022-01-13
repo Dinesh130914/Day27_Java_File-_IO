@@ -3,6 +3,7 @@ package com.payroll;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeePayrollFile {
@@ -39,6 +40,24 @@ public class EmployeePayrollFile {
 			e.printStackTrace();
 		}
 		return count;
+	}
+
+	public List<Employee> getEmpPayrollData() {
+		System.out.println("Storing Emp Data from file to obj");
+		List<Employee> empDataFromFile = new ArrayList<>();
+		
+		try {
+			Files.lines(Paths.get(EMP_FILE_PATH)).map(line->{
+				int id = Integer.parseInt(line.split(",")[0].split(":")[1]);
+				String name = line.split(",")[1].split(":")[1];
+				double salary = Double.parseDouble(line.split(",")[2].split(":")[1]);
+				Employee emp = new Employee(id, name, salary);
+				return emp;
+			}).forEach(emp->empDataFromFile.add(emp));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return empDataFromFile;
 	}
 
 	
