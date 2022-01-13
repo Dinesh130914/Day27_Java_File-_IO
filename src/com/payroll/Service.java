@@ -1,20 +1,28 @@
 package com.payroll;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 public class Service {
+	enum IOStream{
+		CONSOLE_IO, FILE_IO,
+	}
 	List<Employee> servicelist;
 
 	public Service() {
 		servicelist = new ArrayList<>();
 	}
 
+	public Service(Employee[] empsData) {
+		servicelist = Arrays.asList(empsData);
+	}
+
 	public static void main(String[] args) {
 		Service service = new Service();
 		service.readinputfromconsole();
-		service.printservicelist();
+		service.writeempdata(IOStream.CONSOLE_IO);
 	}
 	
 	public void readinputfromconsole() 
@@ -32,8 +40,23 @@ public class Service {
 		
 		consolescn.close();
 	}
-	public void printservicelist() 
+	public void writeempdata(IOStream iOStream) 
 	{
-		System.out.println(servicelist);
+		if(iOStream.equals(iOStream.CONSOLE_IO)) 
+		{
+			System.out.println("Employee Payroll Details"+servicelist);
+		}else if(iOStream.equals(iOStream.FILE_IO)) {
+			EmployeePayrollFile service =new EmployeePayrollFile();
+			service.writeempdata(servicelist);
+		}
 	}
+	
+	public long countentries() {
+		long count = 0;
+		EmployeePayrollFile employeePayrollFile = new EmployeePayrollFile();
+		count = employeePayrollFile.countLines();
+		return count;
+	}
+
+	
 }
